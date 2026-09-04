@@ -1,0 +1,240 @@
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Blur Text ---------- */
+.blur-text {
+  display: block;
+}
+
+.blur-text__word {
+  display: inline-block;
+  line-height: inherit;
+  filter: blur(10px);
+  opacity: 0;
+  transform: translateY(0.45em);
+  transition:
+    filter 0.9s var(--ease),
+    opacity 0.9s var(--ease),
+    transform 0.9s var(--ease);
+  will-change: filter, opacity, transform;
+}
+
+.blur-text.is-in .blur-text__word {
+  filter: blur(0);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Shiny Text ---------- */
+.shiny-text {
+  background: linear-gradient(
+    100deg,
+    var(--white-faint) 20%,
+    var(--gold-bright) 42%,
+    #fff 50%,
+    var(--gold-bright) 58%,
+    var(--white-faint) 80%
+  );
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine var(--shine-speed, 5s) linear infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 180% 0;
+  }
+  100% {
+    background-position: -80% 0;
+  }
+}
+
+/* ---------- Rotating Text ---------- */
+.rotating-text {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.rotating-text__mask {
+  /* inline-grid + a shared cell: every word occupies the same track, so the
+     mask measures the WIDEST word rather than the first one. */
+  display: inline-grid;
+  grid-template-areas: 'word';
+  overflow: hidden;
+  vertical-align: bottom;
+  line-height: 1;
+  /* padding sits inside the overflow box, so tall caps and descenders are
+     never shaved by the clip that the slide animation needs. */
+  padding-block: 0.1em;
+  margin-block: -0.1em;
+}
+
+.rotating-text__item {
+  grid-area: word;
+  display: block;
+  white-space: nowrap;
+  color: var(--gold);
+  transform: translateY(105%);
+  opacity: 0;
+  transition:
+    transform 0.75s var(--ease),
+    opacity 0.5s var(--ease);
+}
+
+.rotating-text__item.is-active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.rotating-text__item.is-prev {
+  transform: translateY(-105%);
+  opacity: 0;
+}
+
+/* ---------- True Focus ---------- */
+.true-focus {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.14em 0.42em;
+  justify-content: center;
+  text-align: center;
+  /* room for the corner brackets so they are never clipped by an ancestor */
+  padding: 0.18em 0.22em;
+}
+
+.true-focus__word {
+  position: relative;
+  transition:
+    filter 0.55s var(--ease),
+    opacity 0.55s var(--ease);
+  cursor: default;
+}
+
+.true-focus__frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transition:
+    transform 0.55s var(--ease),
+    width 0.55s var(--ease),
+    height 0.55s var(--ease);
+}
+
+.true-focus__frame .c {
+  position: absolute;
+  width: 0.5em;
+  height: 0.5em;
+  border: 2px solid var(--gold);
+  filter: drop-shadow(0 0 6px rgba(244, 180, 0, 0.55));
+}
+
+.true-focus__frame .tl {
+  top: -0.16em;
+  left: -0.16em;
+  border-right: 0;
+  border-bottom: 0;
+}
+.true-focus__frame .tr {
+  top: -0.16em;
+  right: -0.16em;
+  border-left: 0;
+  border-bottom: 0;
+}
+.true-focus__frame .bl {
+  bottom: -0.16em;
+  left: -0.16em;
+  border-right: 0;
+  border-top: 0;
+}
+.true-focus__frame .br {
+  bottom: -0.16em;
+  right: -0.16em;
+  border-left: 0;
+  border-top: 0;
+}
+
+/* ---------- Glare Hover ---------- */
+.glare {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.glare__sheen {
+  position: absolute;
+  inset: -40%;
+  z-index: 2;
+  /* must never become a hit target: it covers the whole card, including
+     any link inside it */
+  pointer-events: none;
+  background: linear-gradient(
+    var(--glare-angle, 118deg),
+    transparent 38%,
+    rgba(255, 199, 44, 0.1) 46%,
+    rgba(255, 255, 255, 0.32) 50%,
+    rgba(255, 199, 44, 0.1) 54%,
+    transparent 62%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.85s var(--ease);
+  opacity: 0;
+}
+
+.glare:hover .glare__sheen,
+.glare:focus-within .glare__sheen {
+  transform: translateX(120%);
+  opacity: 1;
+}
+
+/* ---------- Border Glow ---------- */
+.border-glow {
+  position: relative;
+  border-radius: 6px;
+  isolation: isolate;
+}
+
+.border-glow__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+      220px circle at var(--mx, 50%) var(--my, 0%),
+      rgba(255, 199, 44, 0.85),
+      rgba(244, 180, 0, 0.18) 42%,
+      transparent 70%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+
+.border-glow__inner {
+  position: relative;
+  display: block;
+  border-radius: inherit;
+  height: 100%;
+}
+
+.magnetic {
+  display: inline-flex;
+  will-change: transform;
+}

@@ -1,0 +1,330 @@
+:root {
+  /* Palette pulled from the hero artwork: near-black, charcoal, graphite, off-white, gold */
+  --black: #050505;
+  --charcoal: #0b0b0a;
+  --graphite: #141412;
+  --graphite-2: #1e1e1b;
+  --line: rgba(244, 180, 0, 0.16);
+  --line-soft: rgba(255, 255, 255, 0.08);
+  --white: #f6f5f1;
+  --white-dim: rgba(246, 245, 241, 0.62);
+  --white-faint: rgba(246, 245, 241, 0.36);
+  --gold: #f4b400;
+  --gold-bright: #ffc72c;
+  --gold-deep: #a87400;
+
+  --display: 'Anton', 'Haettenschweiler', 'Arial Narrow Bold', Impact, sans-serif;
+  --body: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --grotesk: 'Archivo', 'Inter', system-ui, sans-serif;
+
+  --max: 1440px;
+  --gutter: clamp(1.25rem, 4vw, 5rem);
+  --section-y: clamp(5rem, 12vh, 10rem);
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --z-bg: 0;
+  --z-content: 1;
+  --z-sidebar: 40;
+  --z-nav: 60;
+  --z-menu: 70;
+  --z-float: 65;
+  --z-lightbox: 90;
+  --z-loader: 120;
+  --z-cursor: 140;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Horizontal clipping is set on the root ONLY. The root's overflow propagates
+   to the viewport (and the root itself computes back to visible), so this kills
+   any sideways scrollbar without turning <body> into a scroll container — which
+   is what broke position:sticky on the Experience year rail, and what risks
+   clipping position:fixed layers like the cursor. */
+html {
+  overflow-x: clip;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.is-locked {
+  overflow: hidden;
+}
+
+img,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--black);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--gold);
+  color: var(--black);
+  font-family: var(--grotesk);
+  font-weight: 700;
+  border-radius: 2px;
+  transition: top 0.2s var(--ease);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ---------- layout ---------- */
+.shell {
+  position: relative;
+  z-index: var(--z-content);
+  width: 100%;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+}
+
+.section--tight {
+  padding-block: clamp(3.5rem, 8vh, 6rem);
+}
+
+/* ---------- type ---------- */
+.display {
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 0.94;
+  letter-spacing: 0.004em;
+  text-transform: uppercase;
+  /* display type is set tight; keep it from being clipped by tidy ancestors */
+  overflow-wrap: break-word;
+}
+
+/* Line-measure for display headings.
+   These MUST sit on the heading itself, never on a body-font wrapper:
+   `ch` resolves against the element's own font, so 20ch on a 16px container
+   is ~160px and forces one word per line. */
+.measure {
+  max-width: 20ch;
+}
+
+.measure--wide {
+  max-width: 26ch;
+}
+
+.measure--tight {
+  max-width: 13ch;
+}
+
+.display--xl {
+  font-size: clamp(3rem, 11vw, 10.5rem);
+  line-height: 0.9;
+}
+
+.display--l {
+  font-size: clamp(2.4rem, 7vw, 6rem);
+}
+
+.display--m {
+  font-size: clamp(1.9rem, 4.6vw, 3.6rem);
+}
+
+.eyebrow {
+  font-family: var(--grotesk);
+  font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 2.4rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.lede {
+  font-size: clamp(1.02rem, 1.5vw, 1.3rem);
+  line-height: 1.62;
+  color: var(--white-dim);
+  max-width: 62ch;
+}
+
+.meta {
+  font-family: var(--grotesk);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  color: var(--white-faint);
+}
+
+.gold {
+  color: var(--gold);
+}
+
+.rule {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--line), transparent 70%);
+  border: 0;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1rem 1.9rem;
+  font-family: var(--grotesk);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  border: 1px solid rgba(246, 245, 241, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    border-color 0.4s var(--ease),
+    color 0.4s var(--ease),
+    background 0.4s var(--ease);
+}
+
+.btn svg {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+}
+
+.btn:hover {
+  border-color: var(--gold);
+  color: var(--gold-bright);
+}
+
+.btn--solid {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--black);
+}
+
+.btn--solid:hover {
+  color: var(--black);
+  background: var(--gold-bright);
+  border-color: var(--gold-bright);
+}
+
+.btn--ghost {
+  border-color: rgba(246, 245, 241, 0.14);
+}
+
+/* ---------- misc ---------- */
+.grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 25% 100%;
+  opacity: 0.5;
+  mask-image: linear-gradient(180deg, transparent, #000 25%, #000 75%, transparent);
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .noise {
+    display: none;
+  }
+}
