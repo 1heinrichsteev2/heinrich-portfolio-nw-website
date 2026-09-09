@@ -38,7 +38,8 @@ That code **is** integrated. Everything else was built from scratch in the same 
 | Magnetic button ZIP | **Uploaded code, adapted** | `src/animations/Magnetic.jsx` |
 | Global WebGL shader | Written from scratch | `src/components/GradientWaves.jsx`, `src/components/Loader.jsx` |
 | Portfolio hover effect | Written from scratch | `src/components/PortfolioCard.jsx` |
-| Global mouse effect | Written from scratch | `src/components/Cursor.jsx` |
+| Global mouse effect | Written from scratch | `src/components/
+.jsx` |
 | Menu animation | Written from scratch | `src/components/Menu.jsx` |
 | Icon effects | Written from scratch | inline SVG + `Magnetic` throughout |
 
