@@ -13,8 +13,16 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(60% 50% at 68% 38%, rgba(244, 180, 0, 0.14), transparent 70%),
-    radial-gradient(80% 60% at 20% 20%, rgba(255, 255, 255, 0.05), transparent 70%);
+    radial-gradient(
+      60% 50% at 68% 38%,
+      rgba(244, 180, 0, 0.14),
+      transparent 70%
+    ),
+    radial-gradient(
+      80% 60% at 20% 20%,
+      rgba(255, 255, 255, 0.05),
+      transparent 70%
+    );
   pointer-events: none;
 }
 
@@ -48,7 +56,13 @@
   flex-direction: column;
   gap: 1.4rem;
   padding-top: 30vh;
-  background: linear-gradient(180deg, transparent, rgba(5, 5, 5, 0.72) 45%, rgba(5, 5, 5, 0.94));
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      rgba(5, 5, 5, 0.72) 45%,
+      rgba(5, 5, 5, 0.94)
+    );
 }
 
 .hero__aside {
@@ -119,20 +133,109 @@
   0% {
     transform: translateY(-100%);
   }
+
   60%,
   100% {
     transform: translateY(280%);
   }
 }
 
+
+/* =========================================================
+   MOBILE HERO FIX
+   ========================================================= */
+
 @media (max-width: 700px) {
+  /*
+    The desktop Hero uses an absolute full-screen artwork.
+    On mobile we switch it to normal document flow so the
+    artwork gets its natural aspect ratio and the content
+    below it doesn't create a huge empty area.
+  */
+
+  .hero {
+    min-height: auto;
+    height: auto;
+    display: block;
+    padding-bottom: 1.5rem;
+    overflow: hidden;
+  }
+
+  .hero__glow {
+    z-index: 0;
+  }
+
+  .hero__art {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    display: block;
+    margin-top: 4.5rem;
+    transform: none !important;
+    clip-path: none !important;
+    overflow: hidden;
+  }
+
+  .hero__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center center;
+    transform: none !important;
+  }
+
+  .hero__bottom {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding-top: 2.2rem;
+    padding-bottom: 1rem;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(5, 5, 5, 0) 0%,
+        rgba(5, 5, 5, 0.72) 35%,
+        rgba(5, 5, 5, 0.96) 100%
+      );
+  }
+
+  .hero__aside {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .hero__available {
+    font-size: 0.62rem;
+    line-height: 1.5;
+    letter-spacing: 0.14em;
+  }
+
+  .hero__actions {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .hero__action {
+    flex: 0 0 auto;
+  }
+
+  .hero__action .btn {
+    min-height: 42px;
+    padding-inline: 1.1rem;
+    font-size: 0.68rem;
+  }
+
   .hero__scroll {
     display: none;
   }
-  .hero__bottom {
-    padding-top: 42vh;
-  }
 }
+
 
 /* ---------------- scroll sequence ---------------- */
 .sequence {
@@ -160,8 +263,18 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(70% 60% at 50% 45%, transparent 30%, rgba(5, 5, 5, 0.75) 100%),
-    linear-gradient(180deg, rgba(5, 5, 5, 0.7), transparent 30%, transparent 60%, rgba(5, 5, 5, 0.85));
+    radial-gradient(
+      70% 60% at 50% 45%,
+      transparent 30%,
+      rgba(5, 5, 5, 0.75) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(5, 5, 5, 0.7),
+      transparent 30%,
+      transparent 60%,
+      rgba(5, 5, 5, 0.85)
+    );
   pointer-events: none;
 }
 
@@ -222,6 +335,7 @@
   }
 }
 
+
 /* ---------------- about ---------------- */
 .about__head {
   display: flex;
@@ -233,7 +347,6 @@
 
 .about__headline {
   max-width: 18ch;
-  /* the rotating word sits on the baseline of this line box */
   display: block;
 }
 
@@ -319,7 +432,10 @@
   border-radius: 999px;
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease), border-color 0.4s var(--ease);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease),
+    border-color 0.4s var(--ease);
 }
 
 .about__soft li.is-in {
@@ -384,7 +500,9 @@
   border: 1px solid var(--line-soft);
   border-radius: 50%;
   color: var(--gold);
-  transition: transform 0.6s var(--ease), border-color 0.4s var(--ease),
+  transition:
+    transform 0.6s var(--ease),
+    border-color 0.4s var(--ease),
     background 0.4s var(--ease);
 }
 
@@ -398,6 +516,7 @@
   border-color: var(--gold);
   background: rgba(244, 180, 0, 0.1);
 }
+
 
 /* ---------------- experience ---------------- */
 .xp__head {
@@ -443,7 +562,9 @@
   padding: 0.35rem 0;
   border-left: 1px solid var(--line-soft);
   padding-left: 0.9rem;
-  transition: color 0.45s var(--ease), border-color 0.45s var(--ease),
+  transition:
+    color 0.45s var(--ease),
+    border-color 0.45s var(--ease),
     padding-left 0.45s var(--ease);
 }
 
@@ -472,7 +593,11 @@
 .xp__spine-fill {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, var(--gold), rgba(244, 180, 0, 0.1));
+  background: linear-gradient(
+    180deg,
+    var(--gold),
+    rgba(244, 180, 0, 0.1)
+  );
   transform-origin: top;
   transform: scaleY(0);
 }
@@ -491,28 +616,44 @@
   border-radius: 50%;
   background: var(--graphite-2);
   border: 1px solid rgba(246, 245, 241, 0.3);
-  transition: background 0.5s var(--ease), box-shadow 0.5s var(--ease),
+  transition:
+    background 0.5s var(--ease),
+    box-shadow 0.5s var(--ease),
     border-color 0.5s var(--ease);
 }
 
 .xp__row.is-active .xp__node {
   background: var(--gold);
   border-color: var(--gold);
-  box-shadow: 0 0 0 5px rgba(244, 180, 0, 0.14), 0 0 16px rgba(244, 180, 0, 0.7);
+  box-shadow:
+    0 0 0 5px rgba(244, 180, 0, 0.14),
+    0 0 16px rgba(244, 180, 0, 0.7);
 }
 
 .xp__card {
   padding: clamp(1.3rem, 3vw, 2rem);
   border: 1px solid var(--line-soft);
   border-radius: 4px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.028), rgba(255, 255, 255, 0.008));
-  transition: border-color 0.55s var(--ease), transform 0.55s var(--ease),
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.028),
+      rgba(255, 255, 255, 0.008)
+    );
+  transition:
+    border-color 0.55s var(--ease),
+    transform 0.55s var(--ease),
     background 0.55s var(--ease);
 }
 
 .xp__row.is-active .xp__card {
   border-color: var(--line);
-  background: linear-gradient(180deg, rgba(244, 180, 0, 0.05), rgba(255, 255, 255, 0.01));
+  background:
+    linear-gradient(
+      180deg,
+      rgba(244, 180, 0, 0.05),
+      rgba(255, 255, 255, 0.01)
+    );
   transform: translateX(6px);
 }
 
@@ -564,6 +705,7 @@
   background: var(--gold);
 }
 
+
 /* ---------------- services ---------------- */
 .services__head {
   display: flex;
@@ -575,14 +717,19 @@
 
 .services__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, 270px), 1fr)
+  );
   gap: 1rem;
 }
 
 .services__cell {
   opacity: 0;
   transform: translateY(26px);
-  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+  transition:
+    opacity 0.85s var(--ease),
+    transform 0.85s var(--ease);
 }
 
 .services__cell.is-in {
@@ -596,8 +743,15 @@
   padding: clamp(1.3rem, 2.4vw, 1.9rem);
   border: 1px solid var(--line-soft);
   border-radius: 6px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.006));
-  transition: border-color 0.5s var(--ease), transform 0.5s var(--ease);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.006)
+    );
+  transition:
+    border-color 0.5s var(--ease),
+    transform 0.5s var(--ease);
 }
 
 .service:hover {
@@ -605,7 +759,6 @@
   transform: translateY(-4px);
 }
 
-/* border-glow variant keeps its own ring, so drop the flat border */
 .border-glow.service {
   border-color: transparent;
 }
@@ -659,7 +812,8 @@
   margin-bottom: 1.6rem;
 }
 
-/* depth carousel */
+
+/* ---------------- depth carousel ---------------- */
 .depth {
   position: relative;
   width: 100vw;
@@ -685,9 +839,16 @@
   padding: clamp(1.5rem, 3vw, 2.4rem);
   border: 1px solid var(--line-soft);
   border-radius: 8px;
-  background: linear-gradient(160deg, rgba(30, 30, 27, 0.96), rgba(11, 11, 10, 0.96));
+  background:
+    linear-gradient(
+      160deg,
+      rgba(30, 30, 27, 0.96),
+      rgba(11, 11, 10, 0.96)
+    );
   backdrop-filter: blur(4px);
-  transition: transform 0.85s var(--ease), opacity 0.85s var(--ease),
+  transition:
+    transform 0.85s var(--ease),
+    opacity 0.85s var(--ease),
     border-color 0.6s var(--ease);
   display: flex;
   flex-direction: column;
@@ -732,13 +893,16 @@
   width: 26px;
   height: 2px;
   background: rgba(246, 245, 241, 0.2);
-  transition: background 0.4s var(--ease), width 0.4s var(--ease);
+  transition:
+    background 0.4s var(--ease),
+    width 0.4s var(--ease);
 }
 
 .depth__dots button.is-active {
   background: var(--gold);
   width: 44px;
 }
+
 
 /* ---------------- statement ---------------- */
 .statement {
@@ -751,6 +915,7 @@
   max-width: 24ch;
   margin-inline: auto;
 }
+
 
 /* ---------------- contact ---------------- */
 .contact__head {
@@ -775,32 +940,31 @@
 
 .contact__grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, 300px), 1fr)
+  );
   gap: 1rem;
-  align-items: stretch;
-}
-
-.contact__grid > li {
-  display: flex;
-  align-items: stretch;
-  min-width: 0;
 }
 
 .contact__magnet {
-  display: flex;
+  display: block;
   width: 100%;
-  height: 100%;
-  align-items: stretch;
 }
 
 .contact__card {
   display: block;
-  width: 100%;
-  height: 100%;
   border: 1px solid var(--line-soft);
   border-radius: 6px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.006));
-  transition: border-color 0.5s var(--ease), background 0.5s var(--ease);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.006)
+    );
+  transition:
+    border-color 0.5s var(--ease),
+    background 0.5s var(--ease);
 }
 
 .contact__card:hover {
@@ -812,21 +976,13 @@
 }
 
 .contact__card.is-primary {
-  background: linear-gradient(180deg, rgba(244, 180, 0, 0.09), rgba(244, 180, 0, 0.02));
+  background:
+    linear-gradient(
+      180deg,
+      rgba(244, 180, 0, 0.09),
+      rgba(244, 180, 0, 0.02)
+    );
 }
-
-@media (max-width: 1000px) {
-  .contact__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 600px) {
-  .contact__grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 
 .contact__link {
   position: relative;
@@ -847,7 +1003,9 @@
   border-radius: 50%;
   border: 1px solid var(--line-soft);
   color: var(--gold);
-  transition: transform 0.55s var(--ease), background 0.45s var(--ease),
+  transition:
+    transform 0.55s var(--ease),
+    background 0.45s var(--ease),
     border-color 0.45s var(--ease);
 }
 
@@ -885,7 +1043,9 @@
 .contact__go {
   margin-left: auto;
   color: var(--white-faint);
-  transition: transform 0.5s var(--ease), color 0.4s var(--ease);
+  transition:
+    transform 0.5s var(--ease),
+    color 0.4s var(--ease);
 }
 
 .contact__go svg {
@@ -897,4 +1057,250 @@
 .contact__link:hover .contact__go {
   transform: translate(3px, -3px);
   color: var(--gold);
+}
+
+
+/* =========================================================
+   MOBILE GLOBAL FIXES
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  /*
+    Keep content inside the phone viewport.
+    This prevents desktop-sized elements from creating
+    horizontal overflow.
+  */
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /*
+    Hide desktop right-side section navigation on phones.
+    The mobile screen is too narrow for the desktop rail.
+  */
+
+  .section-nav,
+  .side-nav,
+  .page-nav,
+  .navigation-rail,
+  .section-rail {
+    display: none !important;
+  }
+
+  /*
+    Prevent oversized desktop containers from pushing
+    sections outside the viewport.
+  */
+
+  .wrap {
+    width: min(100% - 2rem, 100%);
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  /*
+    Mobile contact cards.
+    Keep the grid single-column so nothing gets squeezed.
+  */
+
+  .contact__grid {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .contact__magnet {
+    width: 100%;
+  }
+
+  .contact__card {
+    width: 100%;
+  }
+
+  /*
+    Mobile depth carousel.
+  */
+
+  .depth {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    overflow: hidden;
+  }
+
+  .depth__stage {
+    height: 330px;
+  }
+
+  .depth__card {
+    width: min(82vw, 420px);
+    margin-left: min(-41vw, -210px);
+  }
+
+  /*
+    Mobile experience cards.
+  */
+
+  .xp__body {
+    width: 100%;
+  }
+
+  .xp__years {
+    position: static;
+  }
+
+  /*
+    Mobile services.
+  */
+
+  .services__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  .wrap {
+    width: min(100% - 1.25rem, 100%);
+  }
+
+  .hero__art {
+    margin-top: 4rem;
+  }
+
+  .hero__bottom {
+    padding-top: 1.7rem;
+  }
+
+  .hero__available {
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+  }
+
+  .hero__actions {
+    gap: 0.5rem;
+  }
+
+  .hero__action .btn {
+    min-height: 40px;
+    padding-inline: 0.85rem;
+    font-size: 0.61rem;
+  }
+
+  .contact__link {
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .contact__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .contact__label {
+    font-size: 0.86rem;
+  }
+
+  .contact__value {
+    font-size: 0.76rem;
+  }
+}
+/* =========================================================
+   DESKTOP CONTACT CARD ALIGNMENT FIX
+   Mobile layout is NOT changed.
+   ========================================================= */
+
+@media (min-width: 701px) {
+
+  .contact__grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .contact__grid > li {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    align-items: stretch;
+  }
+
+  /*
+    Magnetic wrapper
+  */
+  .contact__magnet {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    display: flex;
+  }
+
+  /*
+    This is important for BorderGlow.
+    It makes the WhatsApp card stretch to
+    exactly the same height as the other cards.
+  */
+  .contact__magnet > * {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+  }
+
+  .contact__card {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact__link {
+    width: 100%;
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .contact__body {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .contact__value {
+    min-width: 0;
+  }
+}
+
+
+/* =========================================================
+   MOBILE — DO NOT CHANGE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .contact__grid {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .contact__magnet {
+    width: 100%;
+  }
+
+  .contact__card {
+    width: 100%;
+  }
 }
