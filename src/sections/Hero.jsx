@@ -14,20 +14,20 @@ const IconBehance = () => (
 );
 
 const IconDoc = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    aria-hidden="true"
+  >
     <path
       d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-    <path d="M14 3v5h5M9 13h6M9 17h4" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const IconDownload = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
     <path
-      d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"
+      d="M14 3v5h5M9 13h6M9 17h4"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -42,45 +42,82 @@ export default function Hero({ started }) {
   /* the single orchestrated entrance of the site, fired when the loader clears */
   useEffect(() => {
     if (!started) return undefined;
+
     const ctx = gsap.context(() => {
       if (reducedMotion) {
-        gsap.set(['.hero__art', '.hero__actions', '.hero__aside', '.hero__scroll'], {
-          opacity: 1,
-          clipPath: 'inset(0%)',
-          y: 0,
-        });
+        gsap.set(
+          ['.hero__art', '.hero__actions', '.hero__aside', '.hero__scroll'],
+          {
+            opacity: 1,
+            clipPath: 'inset(0%)',
+            y: 0,
+          }
+        );
         return;
       }
+
       gsap
         .timeline({ defaults: { ease: 'expo.out' } })
         .fromTo(
           '.hero__art',
-          { clipPath: 'inset(14% 8% 14% 8%)', scale: 1.12, opacity: 0 },
-          { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, opacity: 1, duration: 1.6 }
+          {
+            clipPath: 'inset(14% 8% 14% 8%)',
+            scale: 1.12,
+            opacity: 0,
+          },
+          {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            scale: 1,
+            opacity: 1,
+            duration: 1.6,
+          }
         )
-        .fromTo('.hero__aside', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1 }, '-=0.9')
+        .fromTo(
+          '.hero__aside',
+          { opacity: 0, y: 24 },
+          { opacity: 1, y: 0, duration: 1 },
+          '-=0.9'
+        )
         .fromTo(
           '.hero__action',
           { opacity: 0, y: 34 },
           { opacity: 1, y: 0, duration: 0.9, stagger: 0.1 },
           '-=0.85'
         )
-        .fromTo('.hero__scroll', { opacity: 0 }, { opacity: 1, duration: 0.8 }, '-=0.5');
+        .fromTo(
+          '.hero__scroll',
+          { opacity: 0 },
+          { opacity: 1, duration: 0.8 },
+          '-=0.5'
+        );
     }, rootRef);
+
     return () => ctx.revert();
   }, [started, reducedMotion]);
 
   /* gentle parallax on the artwork */
   useEffect(() => {
     const art = artRef.current;
+
     if (!art || touch || reducedMotion) return undefined;
-    const xTo = gsap.quickTo(art, 'x', { duration: 1.4, ease: 'power3.out' });
-    const yTo = gsap.quickTo(art, 'y', { duration: 1.4, ease: 'power3.out' });
+
+    const xTo = gsap.quickTo(art, 'x', {
+      duration: 1.4,
+      ease: 'power3.out',
+    });
+
+    const yTo = gsap.quickTo(art, 'y', {
+      duration: 1.4,
+      ease: 'power3.out',
+    });
+
     const onMove = (e) => {
       xTo((e.clientX / window.innerWidth - 0.5) * -22);
       yTo((e.clientY / window.innerHeight - 0.5) * -16);
     };
+
     window.addEventListener('pointermove', onMove, { passive: true });
+
     return () => {
       window.removeEventListener('pointermove', onMove);
       gsap.killTweensOf(art);
@@ -91,7 +128,7 @@ export default function Hero({ started }) {
     <section className="hero" id="home" ref={rootRef}>
       <div className="hero__glow" aria-hidden="true" />
 
-      {/* The uploaded artwork carries the name and the professional titles,
+      {/* The uploaded artwork carries the name and professional titles,
           so no headline text is repeated over it. */}
       <div className="hero__art">
         <img
@@ -105,13 +142,20 @@ export default function Hero({ started }) {
 
       <div className="hero__bottom wrap">
         <div className="hero__aside">
-          <ShinyText className="hero__available" speed={4.5}>
+          <ShinyText
+            className="hero__available"
+            speed={4.5}
+          >
             Available for freelance and full-time work
           </ShinyText>
         </div>
 
         <div className="hero__actions">
-          <Magnetic className="hero__action" strength={0.32}>
+          {/* View Portfolio */}
+          <Magnetic
+            className="hero__action"
+            strength={0.32}
+          >
             <GlareHover
               as="a"
               className="btn btn--solid"
@@ -129,7 +173,11 @@ export default function Hero({ started }) {
             </GlareHover>
           </Magnetic>
 
-          <Magnetic className="hero__action" strength={0.32}>
+          {/* View Resume */}
+          <Magnetic
+            className="hero__action"
+            strength={0.32}
+          >
             <GlareHover
               as="a"
               className="btn"
@@ -143,22 +191,6 @@ export default function Hero({ started }) {
             >
               <IconDoc />
               View resume
-            </GlareHover>
-          </Magnetic>
-
-          <Magnetic className="hero__action" strength={0.32}>
-            <GlareHover
-              as="a"
-              className="btn btn--ghost"
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...{
-                href: PERSON.resumeUrl,
-                download: PERSON.resumeFileName,
-                'data-cursor': 'link',
-              }}
-            >
-              <IconDownload />
-              Download resume
             </GlareHover>
           </Magnetic>
         </div>

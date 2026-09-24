@@ -662,12 +662,15 @@
 /* depth carousel */
 .depth {
   position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
   perspective: 1400px;
   outline: none;
 }
 
 .depth__stage {
   position: relative;
+  width: 100%;
   height: clamp(300px, 42vh, 380px);
   transform-style: preserve-3d;
 }
@@ -677,7 +680,7 @@
   top: 0;
   left: 50%;
   width: min(520px, 82vw);
-  margin-left: min(-260px, -41vw);
+  margin-left: max(-260px, -41vw);
   height: 100%;
   padding: clamp(1.5rem, 3vw, 2.4rem);
   border: 1px solid var(--line-soft);
@@ -772,17 +775,28 @@
 
 .contact__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
+  align-items: stretch;
+}
+
+.contact__grid > li {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
 }
 
 .contact__magnet {
-  display: block;
+  display: flex;
   width: 100%;
+  height: 100%;
+  align-items: stretch;
 }
 
 .contact__card {
   display: block;
+  width: 100%;
+  height: 100%;
   border: 1px solid var(--line-soft);
   border-radius: 6px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.006));
@@ -800,6 +814,19 @@
 .contact__card.is-primary {
   background: linear-gradient(180deg, rgba(244, 180, 0, 0.09), rgba(244, 180, 0, 0.02));
 }
+
+@media (max-width: 1000px) {
+  .contact__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 .contact__link {
   position: relative;
