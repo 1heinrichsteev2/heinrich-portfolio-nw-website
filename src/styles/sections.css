@@ -45,7 +45,6 @@
 @media (max-width: 900px) {
   .hero__img {
     object-position: center 34%;
-    transform: scale(1.06);
   }
 }
 
