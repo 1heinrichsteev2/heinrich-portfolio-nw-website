@@ -79,9 +79,9 @@ export default function About() {
                     className={inView ? 'is-in' : ''}
                     style={{ transitionDelay: `${i * 0.07}s` }}
                   >
-                    <span className="about__soft-short" aria-hidden="true">
-                      {s.short}
-                    </span>
+                    <span className="about__soft-icon" aria-hidden="true">
+  <img src={s.icon} alt="" />
+</span>
                     <span className="about__soft-name">{s.name}</span>
                   </li>
                 ))}

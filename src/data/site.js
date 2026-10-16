@@ -101,11 +101,31 @@ export const EXPERIENCE = [
 
 /* SOFTWARE SKILLS — from the resume software skills row (Ps · Ai · Ae · Pr · Lr) */
 export const SOFTWARE = [
-  { short: 'Ps', name: 'Photoshop' },
-  { short: 'Ai', name: 'Illustrator' },
-  { short: 'Ae', name: 'After Effects' },
-  { short: 'Pr', name: 'Premiere Pro' },
-  { short: 'Lr', name: 'Lightroom' },
+  {
+    short: 'Ps',
+    name: 'Photoshop',
+    icon: '/software-icons/photoshop-40.svg',
+  },
+  {
+    short: 'Ai',
+    name: 'Illustrator',
+    icon: '/software-icons/illustrator-40.svg',
+  },
+  {
+    short: 'Ae',
+    name: 'After Effects',
+    icon: '/software-icons/after-effects-40.svg',
+  },
+  {
+    short: 'Pr',
+    name: 'Premiere Pro',
+    icon: '/software-icons/premiere-pro-40.svg',
+  },
+  {
+    short: 'Lr',
+    name: 'Lightroom',
+    icon: '/software-icons/lightroom-40.svg',
+  },
 ];
 
 /* INTERESTS — exact resume list */
