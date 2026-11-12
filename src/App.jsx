@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import Loader from './components/Loader';
 import Cursor from './components/Cursor';
+import GlowCursor from './components/GlowCursor';
 import GradientWaves from './components/GradientWaves';
 import TopBar from './components/TopBar';
 import Menu from './components/Menu';
@@ -39,7 +40,7 @@ export default function App() {
   const [active, setActive] = useState('home');
   const [progress, setProgress] = useState(0);
   const [scrolled, setScrolled] = useState(false);
-  const { small, reducedMotion } = useDeviceProfile();
+  const { small, reducedMotion, touch } = useDeviceProfile();
 
   useSmoothScroll(loaded, reducedMotion);
 
@@ -92,6 +93,31 @@ export default function App() {
   return (
     <>
       {!loaded && <Loader onComplete={() => setLoaded(true)} />}
+
+      {!touch && (
+  <GlowCursor
+    color="#f4b400"
+    secondaryColor="#fff1bd"
+    intensity={1.1}
+    trailWidth={2.6}
+    linger={1.2}
+    glow={0.9}
+    hotspot={0.65}
+    followSpeed={0.6}
+    clickBurst
+    quality="medium"
+    maxDevicePixelRatio={1.25}
+    theme="dark"
+    style={{
+      position: 'fixed',
+      inset: 0,
+      width: '100vw',
+      height: '100vh',
+      pointerEvents: 'none',
+      zIndex: 'var(--z-cursor, 9998)',
+    }}
+  />
+)}  
 
       <Cursor />
       <GradientWaves intensity={1} />
